@@ -303,17 +303,23 @@ public class PlaybackController: NSObject {
         
         if let fileUrl = wholeFileCache?.fileUrlForWholeFile(for: source.remoteUrl) {
             // Files should play without waiting.
-            player.automaticallyWaitsToMinimizeStalling = false
+            if #available(iOS 10.0, *) {
+                player.automaticallyWaitsToMinimizeStalling = false
+            }
             asset = AVURLAsset(url: fileUrl)
             playbackMode = .fromFileUrl
         } else if let delegatedAsset = resourceLoaderDelegate.prepareAsset(for: source.remoteUrl) {
             // Enable automatic waiting when streaming over the network.
-            player.automaticallyWaitsToMinimizeStalling = true
+            if #available(iOS 10.0, *) {
+                player.automaticallyWaitsToMinimizeStalling = true
+            }
             asset = delegatedAsset
             playbackMode = .fromResourceLoader
         } else {
             // Enable automatic waiting when streaming over the network.
-            player.automaticallyWaitsToMinimizeStalling = true
+            if #available(iOS 10.0, *) {
+                player.automaticallyWaitsToMinimizeStalling = true
+            }
             asset = AVURLAsset(url: source.remoteUrl)
             playbackMode = .fromRemoteUrl
         }
@@ -347,12 +353,16 @@ public class PlaybackController: NSObject {
             status = .playing
             // Play immediately because... it seems to perform well even on my
             // shitty-ass U-Verse internet.
-            player.playImmediately(atRate: Float(preferredRate))
+            if #available(iOS 10.0, *) {
+                player.playImmediately(atRate: Float(preferredRate))
+            } else {
+                player.play()
+            }
         case .idle, .playing, .buffering, .error:
             break
         }
     }
-    
+
     /// Pauses playback if possible.
     public func pause(manually: Bool) {
         switch status {
@@ -567,27 +577,46 @@ fileprivate extension PlaybackController {
     }
     
     fileprivate func playerDidChangeTimeControlStatus() {
-        switch player.timeControlStatus {
-        case .paused:
-            switch status {
-            case .paused(_), .idle, .error(_), .preparing(_,_):
-                break
-            case .playing, .buffering:
-                status = .paused(manually: false)
+        if #available(iOS 10.0, *) {
+            switch player.timeControlStatus {
+            case .paused:
+                switch status {
+                case .paused(_), .idle, .error(_), .preparing(_,_):
+                    break
+                case .playing, .buffering:
+                    status = .paused(manually: false)
+                }
+            case .playing:
+                status = .playing
+            case .waitingToPlayAtSpecifiedRate:
+                switch status {
+                case .idle, .error(_), .preparing(_,_):
+                    break
+                case .paused, .playing, .buffering:
+                    status = .buffering
+                }
             }
-        case .playing:
-            status = .playing
-        case .waitingToPlayAtSpecifiedRate:
-            switch status {
-            case .idle, .error(_), .preparing(_,_):
-                break
-            case .paused, .playing, .buffering:
-                status = .buffering
+        } else {
+            // Discussion:
+            //  - `rate` is NOT the way to check whether a video is playing (it could stalled). From documentation of rate: "Indicates the desired rate of playback; 0.0 means "paused", 1.0 indicates a desire to play at the natural rate of the current item."
+            // Reference https://stackoverflow.com/questions/5655864/check-play-state-of-avplayer
+            if player.rate != 0 && player.error == nil {
+                // Playing
+                status = .playing
+            }
+            else {
+                // Paused
+                switch status {
+                case .paused(_), .idle, .error(_), .preparing(_,_):
+                    break
+                case .playing, .buffering:
+                    status = .paused(manually: false)
+                }
             }
         }
         updateNowPlayingInfo()
     }
-    
+
     fileprivate func playerItemDidChangeStatus(_ item: AVPlayerItem) {
         switch item.status {
         case .readyToPlay:
@@ -609,7 +638,7 @@ fileprivate extension PlaybackController {
                 }
             }
         case .failed:
-            SodesLog("Item status failed: \(item.error)")
+            SodesLog("Item status failed: \(item.error?.localizedDescription ?? "unknown error")")
             status = .error(item.error)
         case .unknown:
             SodesLog("Item status unknown")

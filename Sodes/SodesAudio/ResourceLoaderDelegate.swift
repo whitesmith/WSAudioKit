@@ -296,7 +296,7 @@ internal class ResourceLoaderDelegate: NSObject, AVAssetResourceLoaderDelegate {
                     // Let's only reset meta data if we receive a successful
                     // response.
                     
-                    SodesLog("Failed with error: \(error)")
+                    SodesLog("Failed with error: \(error?.localizedDescription ?? "unknown error")")
                     self.finish(loadingRequest, with: error)
                 }
                 
@@ -338,7 +338,7 @@ internal class ResourceLoaderDelegate: NSObject, AVAssetResourceLoaderDelegate {
         
         let lowerBound = avDataRequest.requestedOffset  // e.g. 0, for Range(0..<4)
         let length = avDataRequest.requestedLength      // e.g. 3, for Range(0..<4)
-        let upperBound = lowerBound + length            // e.g. 4, for Range(0..<4)
+        let upperBound = lowerBound + Int64(length)            // e.g. 4, for Range(0..<4)
         let dataRequest: DataRequest = {
             let loader = DataRequestLoader(
                 resourceUrl: originalURL,
@@ -498,7 +498,7 @@ fileprivate extension ResourceLoaderDelegate {
     
     func finish(_ loadingRequest: AVAssetResourceLoadingRequest, with error: Error?) {
         self.errorStatus = .error(error)
-        loadingRequest.finishLoading(with: error as? NSError)
+        loadingRequest.finishLoading(with: error as NSError?)
         DispatchQueue.main.async {
             if case .error(_) = self.errorStatus {
                 self.delegate?.resourceLoaderDelegate(self, didEncounter: error)

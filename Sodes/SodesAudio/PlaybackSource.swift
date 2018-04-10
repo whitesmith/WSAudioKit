@@ -42,8 +42,13 @@ internal extension PlaybackSource {
             info[MPMediaItemPropertyAlbumArtist] = artist as NSString
         }
         if let image = image {
-            let artwork = MPMediaItemArtwork(boundsSize: image.size) { (inputSize) -> UIImage in
-                return image.draw(at: inputSize)
+            let artwork: MPMediaItemArtwork
+            if #available(iOS 10.0, *) {
+                artwork = MPMediaItemArtwork(boundsSize: image.size) { (inputSize) -> UIImage in
+                    return image.draw(at: inputSize)
+                }
+            } else {
+                artwork = MPMediaItemArtwork(image: image)
             }
             info[MPMediaItemPropertyArtwork] = artwork
         }

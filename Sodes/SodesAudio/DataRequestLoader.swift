@@ -160,7 +160,7 @@ class DataRequestLoader {
                     // No-op, just let the procedure continue onto the next operation
                     break
                 case .error(let response,let error):
-                    SodesLog("\(error): \(response)")
+                    SodesLog("\(error?.localizedDescription ?? "unknown error"): \(response?.debugDescription ?? "no response")")
                     this.fail(with: error)
                 }
         })
@@ -214,7 +214,7 @@ extension DataRequestLoader: HTTPOperationDataDelegate {
         do {
             try scratchFileHandle.write(data, at: UInt64(currentOffset))
             scratchFileHandle.synchronizeFile()
-            let range: ByteRange = (currentOffset..<currentOffset+data.count)
+            let range: ByteRange = (currentOffset..<currentOffset+Int64(data.count))
             currentOffset = range.upperBound
             callbackQueue.sync { [weak self] in
                 guard let this = self else {return}
