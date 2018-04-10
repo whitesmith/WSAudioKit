@@ -8,9 +8,9 @@
 
 import Foundation
 import AVFoundation
-import CommonCryptoSwift
 import SodesFoundation
 import SwiftableFileHandle
+import CryptoSwift
 
 protocol ResourceLoaderDelegateDelegate: class {
     func resourceLoaderDelegate(_ delegate: ResourceLoaderDelegate, didEncounter error: Error?)
@@ -406,7 +406,7 @@ fileprivate extension ResourceLoaderDelegate {
     
     /// Returns a unique id for `url`.
     func identifier(for url: URL) -> String {
-        return Hash.MD5(url.absoluteString)!
+        return url.absoluteString.md5()
     }
     
     /// Returns the desired URL for the scratch file subdirectory for `resourceUrl`.

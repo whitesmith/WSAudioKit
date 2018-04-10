@@ -13,7 +13,7 @@ extension AVAssetResourceLoadingDataRequest {
     
     var byteRange: ByteRange {
         let lowerBound = requestedOffset
-        let upperBound = (lowerBound + requestedLength - 1)
+        let upperBound = (lowerBound + Int64(requestedLength) - 1)
         return (lowerBound..<upperBound)
     }
     

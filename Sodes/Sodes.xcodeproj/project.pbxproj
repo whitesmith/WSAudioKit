@@ -11,8 +11,6 @@
 		470AA1081D5677BC00F6DD8B /* DownloadOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470AA1041D5677BC00F6DD8B /* DownloadOperation.swift */; };
 		470AA1091D5677BC00F6DD8B /* HTTPOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470AA1051D5677BC00F6DD8B /* HTTPOperation.swift */; };
 		470AA10A1D5677BC00F6DD8B /* WorkOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470AA1061D5677BC00F6DD8B /* WorkOperation.swift */; };
-		471460341D7A8FB30066572D /* CommonCryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 473F051F1D320AEE00A12CAB /* CommonCryptoSwift.framework */; };
-		471460351D7A8FC50066572D /* CommonCryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 473F051F1D320AEE00A12CAB /* CommonCryptoSwift.framework */; };
 		4717AE7B1D641D80006BB2CB /* ScratchFileInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4717AE7A1D641D7F006BB2CB /* ScratchFileInfo.swift */; };
 		4717AE851D64AD64006BB2CB /* NSDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4717AE841D64AD64006BB2CB /* NSDateFormatter.swift */; };
 		4717AE9B1D64F29A006BB2CB /* DateFormattingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4717AE9A1D64F29A006BB2CB /* DateFormattingTests.swift */; };
@@ -23,8 +21,6 @@
 		474939E81D7A8498009C5F0E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 474939E61D7A8498009C5F0E /* Main.storyboard */; };
 		474939EA1D7A8498009C5F0E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 474939E91D7A8498009C5F0E /* Assets.xcassets */; };
 		474939ED1D7A8498009C5F0E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 474939EB1D7A8498009C5F0E /* LaunchScreen.storyboard */; };
-		474939F21D7A84AF009C5F0E /* CommonCryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 473F051F1D320AEE00A12CAB /* CommonCryptoSwift.framework */; };
-		474939F31D7A84AF009C5F0E /* CommonCryptoSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 473F051F1D320AEE00A12CAB /* CommonCryptoSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		474939F61D7A84AF009C5F0E /* SodesAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 473AB2051D3275B4000B15FF /* SodesAudio.framework */; };
 		474939F71D7A84AF009C5F0E /* SodesAudio.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 473AB2051D3275B4000B15FF /* SodesAudio.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		474939FA1D7A84AF009C5F0E /* SodesFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47AAD59B1D55874D0025A72C /* SodesFoundation.framework */; };
@@ -67,6 +63,7 @@
 		47FBF67A1D56626900AB241C /* SODSwiftableFileHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = 47FBF6781D56626900AB241C /* SODSwiftableFileHandle.m */; };
 		47FBF67B1D5666F900AB241C /* SwiftableFileHandle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47FBF6631D56622F00AB241C /* SwiftableFileHandle.framework */; };
 		47FBF67D1D56671400AB241C /* SODSwiftableFileHandle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47FBF67C1D56671400AB241C /* SODSwiftableFileHandle.swift */; };
+		D7AA3F4D207CCB300081C52A /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7AA3F4C207CCB300081C52A /* CryptoSwift.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,41 +73,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 473AB2041D3275B4000B15FF;
 			remoteInfo = SodesAudio;
-		};
-		473F051E1D320AEE00A12CAB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 473F05171D320AEE00A12CAB /* CommonCryptoSwift.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = D5B2E89F1C3A780C00C0327D;
-			remoteInfo = "CommonCryptoSwift-iOS";
-		};
-		473F05201D320AEE00A12CAB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 473F05171D320AEE00A12CAB /* CommonCryptoSwift.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = D5C629401C3A7FAA007F7B7C;
-			remoteInfo = "CommonCryptoSwift-Mac";
-		};
-		473F05221D320AEE00A12CAB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 473F05171D320AEE00A12CAB /* CommonCryptoSwift.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = D5B2E8A91C3A780C00C0327D;
-			remoteInfo = "CommonCryptoSwift-iOS-Tests";
-		};
-		473F05241D320AEE00A12CAB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 473F05171D320AEE00A12CAB /* CommonCryptoSwift.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = D5C629491C3A7FAA007F7B7C;
-			remoteInfo = "CommonCryptoSwift-Mac-Tests";
-		};
-		474939F41D7A84AF009C5F0E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 473F05171D320AEE00A12CAB /* CommonCryptoSwift.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = D5B2E89E1C3A780C00C0327D;
-			remoteInfo = "CommonCryptoSwift-iOS";
 		};
 		474939F81D7A84AF009C5F0E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -152,7 +114,6 @@
 				474939F71D7A84AF009C5F0E /* SodesAudio.framework in Embed Frameworks */,
 				474939FB1D7A84AF009C5F0E /* SodesFoundation.framework in Embed Frameworks */,
 				474939FF1D7A84AF009C5F0E /* SwiftableFileHandle.framework in Embed Frameworks */,
-				474939F31D7A84AF009C5F0E /* CommonCryptoSwift.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -171,7 +132,6 @@
 		4731BAF61D5534ED00FCF41B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4731BB051D55350300FCF41B /* ByteRangeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ByteRangeTests.swift; sourceTree = "<group>"; };
 		473AB2051D3275B4000B15FF /* SodesAudio.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SodesAudio.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		473F05171D320AEE00A12CAB /* CommonCryptoSwift.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CommonCryptoSwift.xcodeproj; path = ../Dependencies/CommonCrypto.swift/CommonCryptoSwift.xcodeproj; sourceTree = "<group>"; };
 		474939E01D7A8498009C5F0E /* SodesExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SodesExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		474939E21D7A8498009C5F0E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		474939E41D7A8498009C5F0E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -219,6 +179,8 @@
 		47FBF6771D56626900AB241C /* SODSwiftableFileHandle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SODSwiftableFileHandle.h; sourceTree = "<group>"; };
 		47FBF6781D56626900AB241C /* SODSwiftableFileHandle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SODSwiftableFileHandle.m; sourceTree = "<group>"; };
 		47FBF67C1D56671400AB241C /* SODSwiftableFileHandle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SODSwiftableFileHandle.swift; sourceTree = "<group>"; };
+		D7AA3F46207CBDD60081C52A /* CryptoSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CryptoSwift.framework; path = ../Carthage/Build/iOS/CryptoSwift.framework; sourceTree = "<group>"; };
+		D7AA3F4C207CCB300081C52A /* CryptoSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CryptoSwift.framework; path = Carthage/Build/iOS/CryptoSwift.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -234,9 +196,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				471460351D7A8FC50066572D /* CommonCryptoSwift.framework in Frameworks */,
 				47FBF67B1D5666F900AB241C /* SwiftableFileHandle.framework in Frameworks */,
 				47AAD5BE1D5588210025A72C /* SodesFoundation.framework in Frameworks */,
+				D7AA3F4D207CCB300081C52A /* CryptoSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -247,7 +209,6 @@
 				474939F61D7A84AF009C5F0E /* SodesAudio.framework in Frameworks */,
 				474939FA1D7A84AF009C5F0E /* SodesFoundation.framework in Frameworks */,
 				474939FE1D7A84AF009C5F0E /* SwiftableFileHandle.framework in Frameworks */,
-				474939F21D7A84AF009C5F0E /* CommonCryptoSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -255,7 +216,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				471460341D7A8FB30066572D /* CommonCryptoSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -317,17 +277,6 @@
 			path = SodesAudio;
 			sourceTree = "<group>";
 		};
-		473F05181D320AEE00A12CAB /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				473F051F1D320AEE00A12CAB /* CommonCryptoSwift.framework */,
-				473F05211D320AEE00A12CAB /* CommonCryptoSwift.framework */,
-				473F05231D320AEE00A12CAB /* CommonCryptoSwift-iOS-Tests.xctest */,
-				473F05251D320AEE00A12CAB /* CommonCryptoSwift-Mac-Tests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		474939E11D7A8498009C5F0E /* SodesExample */ = {
 			isa = PBXGroup;
 			children = (
@@ -345,6 +294,8 @@
 		474FBF061D75AD59003A824E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D7AA3F4C207CCB300081C52A /* CryptoSwift.framework */,
+				D7AA3F46207CBDD60081C52A /* CryptoSwift.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -352,7 +303,6 @@
 		4779A35A1D31387D00C004DE = {
 			isa = PBXGroup;
 			children = (
-				473F05171D320AEE00A12CAB /* CommonCryptoSwift.xcodeproj */,
 				47FBF6641D56622F00AB241C /* SwiftableFileHandle */,
 				47AAD59C1D55874D0025A72C /* SodesFoundation */,
 				47AAD5AA1D55874E0025A72C /* SodesFoundationTests */,
@@ -494,7 +444,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				474939F51D7A84AF009C5F0E /* PBXTargetDependency */,
 				474939F91D7A84AF009C5F0E /* PBXTargetDependency */,
 				474939FD1D7A84AF009C5F0E /* PBXTargetDependency */,
 				47493A011D7A84AF009C5F0E /* PBXTargetDependency */,
@@ -565,7 +514,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0800;
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0830;
 				TargetAttributes = {
 					4731BAF11D5534ED00FCF41B = {
 						CreatedOnToolsVersion = 8.0;
@@ -576,18 +525,15 @@
 					};
 					473AB2041D3275B4000B15FF = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = 442RNUGV2T;
 						DevelopmentTeamName = "Nice Boy LLC";
 						LastSwiftMigration = 0800;
 					};
 					474939DF1D7A8498009C5F0E = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = 442RNUGV2T;
 						ProvisioningStyle = Automatic;
 					};
 					47AAD59A1D55874D0025A72C = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = 442RNUGV2T;
 						DevelopmentTeamName = "Nice Boy LLC";
 						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
@@ -601,7 +547,6 @@
 					};
 					47FBF6621D56622F00AB241C = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = 442RNUGV2T;
 						DevelopmentTeamName = "Nice Boy LLC";
 						ProvisioningStyle = Automatic;
 					};
@@ -618,12 +563,6 @@
 			mainGroup = 4779A35A1D31387D00C004DE;
 			productRefGroup = 4779A3671D31394700C004DE /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 473F05181D320AEE00A12CAB /* Products */;
-					ProjectRef = 473F05171D320AEE00A12CAB /* CommonCryptoSwift.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				47FBF6621D56622F00AB241C /* SwiftableFileHandle */,
@@ -635,37 +574,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		473F051F1D320AEE00A12CAB /* CommonCryptoSwift.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = CommonCryptoSwift.framework;
-			remoteRef = 473F051E1D320AEE00A12CAB /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		473F05211D320AEE00A12CAB /* CommonCryptoSwift.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = CommonCryptoSwift.framework;
-			remoteRef = 473F05201D320AEE00A12CAB /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		473F05231D320AEE00A12CAB /* CommonCryptoSwift-iOS-Tests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "CommonCryptoSwift-iOS-Tests.xctest";
-			remoteRef = 473F05221D320AEE00A12CAB /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		473F05251D320AEE00A12CAB /* CommonCryptoSwift-Mac-Tests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "CommonCryptoSwift-Mac-Tests.xctest";
-			remoteRef = 473F05241D320AEE00A12CAB /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		4731BAF01D5534ED00FCF41B /* Resources */ = {
@@ -807,11 +715,6 @@
 			target = 473AB2041D3275B4000B15FF /* SodesAudio */;
 			targetProxy = 4731BAF81D5534ED00FCF41B /* PBXContainerItemProxy */;
 		};
-		474939F51D7A84AF009C5F0E /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "CommonCryptoSwift-iOS";
-			targetProxy = 474939F41D7A84AF009C5F0E /* PBXContainerItemProxy */;
-		};
 		474939F91D7A84AF009C5F0E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 473AB2041D3275B4000B15FF /* SodesAudio */;
@@ -942,17 +845,21 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 442RNUGV2T;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -1005,17 +912,21 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 442RNUGV2T;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -1062,7 +973,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = 442RNUGV2T;
+				DEVELOPMENT_TEAM = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -1104,7 +1015,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 442RNUGV2T;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -1129,7 +1040,9 @@
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1152,7 +1065,9 @@
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1163,6 +1078,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 			};
 			name = Release;
 		};
@@ -1179,12 +1095,12 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 442RNUGV2T;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1228,12 +1144,12 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 442RNUGV2T;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1341,12 +1257,12 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 442RNUGV2T;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1387,12 +1303,12 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 442RNUGV2T;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
