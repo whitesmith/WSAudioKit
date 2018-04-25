@@ -90,7 +90,7 @@ public class PlaybackController: NSObject {
     // MARK: Singleton (Optional)
     
     /// The singleton instance. Optional.
-    public static let sharedController = PlaybackController(
+    public static let shared = PlaybackController(
         resourcesDirectory: defaultDirectory,
         defaults: UserDefaults.standard
     )

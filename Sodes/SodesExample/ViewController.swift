@@ -55,14 +55,14 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         self.playPauseButton.setTitle("PLAY", for: .normal)
 
-        PlaybackController.sharedController.artworkProvider = self.artworkFetcher
+        PlaybackController.shared.artworkProvider = self.artworkFetcher
 
-        PlaybackController.sharedController.prepare(TestSource(), startTime: 0, playWhenReady: true)
+        PlaybackController.shared.prepare(TestSource(), startTime: 0, playWhenReady: true)
         
         let center = NotificationCenter.default
         
         center.addObserver(forName: PlaybackControllerNotification.DidUpdateElapsedTime.name, object: nil, queue: .main) { (note) in
-            let controller = PlaybackController.sharedController
+            let controller = PlaybackController.shared
             guard let duration = controller.duration else {return}
             let elapsed = floor(controller.elapsedTime)
             self.elapsedTimeLabel.text = EpisodeDurationParsing.string(from: elapsed)
@@ -72,7 +72,7 @@ class ViewController: UIViewController {
         }
         
         center.addObserver(forName: PlaybackControllerNotification.DidUpdateStatus.name, object: nil, queue: .main) { (note) in
-            switch PlaybackController.sharedController.status {
+            switch PlaybackController.shared.status {
             case .buffering, .preparing(_,_):
                 self.activityIndicator.startAnimating()
             case .paused(_), .idle:
@@ -102,15 +102,15 @@ class ViewController: UIViewController {
     }
     
     @IBAction func togglePlayPause(sender: AnyObject?) {
-        PlaybackController.sharedController.togglePlayPause()
+        PlaybackController.shared.togglePlayPause()
     }
     
     @IBAction func back(sender: AnyObject?) {
-        PlaybackController.sharedController.skipBackward()
+        PlaybackController.shared.skipBackward()
     }
     
     @IBAction func forward(sender: AnyObject?) {
-        PlaybackController.sharedController.skipForward()
+        PlaybackController.shared.skipForward()
     }
 
 }
