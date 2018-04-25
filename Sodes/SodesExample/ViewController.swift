@@ -22,6 +22,22 @@ struct TestSource: PlaybackSource {
     var expectedLengthInBytes: Int64? = nil
 }
 
+class ArtworkFetcher: ArtworkProvider {
+
+    func getArtwork(for url: URL, completion: @escaping (UIImage?) -> Void) {
+        DispatchQueue.global().async {
+            do {
+                let image = UIImage(data: try Data(contentsOf: url))
+                completion(image)
+            }
+            catch {
+                completion(nil)
+            }
+        }
+    }
+    
+}
+
 class ViewController: UIViewController {
     
     @IBOutlet private var playPauseButton: UIButton!
@@ -32,12 +48,16 @@ class ViewController: UIViewController {
     @IBOutlet private var remainingTimeLabel: UILabel!
     @IBOutlet private var activityIndicator: UIActivityIndicatorView!
     @IBOutlet private var byteRangeTextView: UITextView!
+
+    let artworkFetcher = ArtworkFetcher()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let source = TestSource()
-        PlaybackController.sharedController.prepare(source, startTime: 0, playWhenReady: true)
+        self.playPauseButton.setTitle("PLAY", for: .normal)
+
+        PlaybackController.sharedController.artworkProvider = self.artworkFetcher
+
+        PlaybackController.sharedController.prepare(TestSource(), startTime: 0, playWhenReady: true)
         
         let center = NotificationCenter.default
         
@@ -55,7 +75,13 @@ class ViewController: UIViewController {
             switch PlaybackController.sharedController.status {
             case .buffering, .preparing(_,_):
                 self.activityIndicator.startAnimating()
-            default:
+            case .paused(_), .idle:
+                self.playPauseButton.setTitle("PLAY", for: .normal)
+                self.activityIndicator.stopAnimating()
+            case .playing:
+                self.playPauseButton.setTitle("PAUSE", for: .normal)
+                self.activityIndicator.stopAnimating()
+            case .error(_):
                 self.activityIndicator.stopAnimating()
             }
         }
@@ -66,7 +92,13 @@ class ViewController: UIViewController {
                 self.byteRangeTextView.text = "\(ranges)"
             }
         }
-        
+
+        center.addObserver(forName: PlaybackControllerNotification.DidPlayToEnd.name, object: nil, queue: .main) { (note) in
+            let key = PlaybackControllerNotification.SourceKey
+            if let source = note.userInfo?[key] as? PlaybackSource {
+                print("Ended", source)
+            }
+        }
     }
     
     @IBAction func togglePlayPause(sender: AnyObject?) {
