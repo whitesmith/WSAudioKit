@@ -440,6 +440,7 @@
 				474939DD1D7A8498009C5F0E /* Frameworks */,
 				474939DE1D7A8498009C5F0E /* Resources */,
 				47493A021D7A84AF009C5F0E /* Embed Frameworks */,
+				D7A5DC9F208FADBB009EB10A /* Carthage */,
 			);
 			buildRules = (
 			);
@@ -622,6 +623,25 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		D7A5DC9F208FADBB009EB10A /* Carthage */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/../Carthage/Build/iOS/CryptoSwift.framework",
+			);
+			name = Carthage;
+			outputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/CryptoSwift.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		4731BAEE1D5534ED00FCF41B /* Sources */ = {
