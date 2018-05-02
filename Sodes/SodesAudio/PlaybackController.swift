@@ -491,9 +491,12 @@ fileprivate extension PlaybackController {
     }
     
     fileprivate func updateArtwork() {
+        if let image = currentSource?.artworkImage {
+            currentArtwork = image
+        }
         if let url = currentSource?.artworkUrl {
             artworkProvider?.getArtwork(for: url) { [weak self] (image) in
-                self?.currentArtwork = image
+                self?.currentArtwork = image ?? self?.currentSource?.artworkImage
             }
         }
     }

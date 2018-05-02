@@ -19,6 +19,7 @@ public protocol PlaybackSource {
     var albumTitle: String? {get}
     var artist: String? {get}
     var artworkUrl: URL? {get}
+    var artworkImage: UIImage? {get}
     var mediaType: MPMediaType {get}
     var expectedLengthInBytes: Int64? {get}    
 }
