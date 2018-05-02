@@ -327,7 +327,10 @@ public class PlaybackController: NSObject {
         }
         
         currentPlayerItem = AVPlayerItem(asset: asset)
-        
+
+        player.pause()
+        player.replaceCurrentItem(with: nil)
+
         player.replaceCurrentItem(with: currentPlayerItem!)
     }
     
