@@ -18,6 +18,7 @@ struct TestSource: PlaybackSource {
     var albumTitle: String? = "Album Title"
     var artist: String? = "Artist"
     var artworkUrl: URL? = URL(string: "http://exponent.fm/wp-content/uploads/2014/02/cropped-Exponent-header.png")
+    var artworkImage: UIImage? = nil
     var mediaType: MPMediaType = .podcast
     var expectedLengthInBytes: Int64? = nil
 }
