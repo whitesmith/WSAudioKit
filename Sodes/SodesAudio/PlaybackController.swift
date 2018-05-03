@@ -277,7 +277,10 @@ public class PlaybackController: NSObject {
             queue: .main,
             using: handleAudioSessionInterruptionNotification
         )
-        
+    }
+
+    deinit {
+        SodesLog("Deinitialized")
     }
     
     // MARK: Public Methods
