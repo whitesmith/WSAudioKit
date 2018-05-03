@@ -26,7 +26,7 @@ extension URLResponse {
     var sodes_responseRange: ByteRange? {
         guard let response = self as? HTTPURLResponse else {return nil}
         if let fullString = response.allHeaderFields["Content-Range"] as? String,
-            let firstPart = fullString.characters.split(separator: "/").map({String($0)}).first
+            let firstPart = fullString.split(separator: "/").map({String($0)}).first
         {
             if let prefixRange = firstPart.range(of: "bytes ") {
                 let rangeString = firstPart.substring(from: prefixRange.upperBound)
@@ -43,7 +43,7 @@ extension URLResponse {
     var sodes_expectedContentLength: Int64? {
         guard let response = self as? HTTPURLResponse else {return nil}
         if let rangeString = response.allHeaderFields["Content-Range"] as? String,
-            let bytesString = rangeString.characters.split(separator: "/").map({String($0)}).last,
+            let bytesString = rangeString.split(separator: "/").map({String($0)}).last,
             let bytes = Int64(bytesString)
         {
             return bytes

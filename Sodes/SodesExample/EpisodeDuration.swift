@@ -37,15 +37,15 @@ public struct EpisodeDurationParsing {
             duration = comps[0].toSeconds(constrainToClockRange: false)
         }
         else if comps.count == 2 {
-            guard comps[0].characters.count == 2 else {return nil}
-            guard comps[1].characters.count == 2 else {return nil}
+            guard comps[0].count == 2 else {return nil}
+            guard comps[1].count == 2 else {return nil}
             duration =
                   comps[0].toMinutes() * 60
                 + comps[1].toSeconds(constrainToClockRange: true)
         }
         else if comps.count == 3 {
-            guard comps[1].characters.count == 2 else {return nil}
-            guard comps[2].characters.count == 2 else {return nil}
+            guard comps[1].count == 2 else {return nil}
+            guard comps[2].count == 2 else {return nil}
             duration =
                   comps[0].toHours() * 3600
                 + comps[1].toMinutes() * 60
