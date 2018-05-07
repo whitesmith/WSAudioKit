@@ -142,6 +142,11 @@ internal class ResourceLoaderDelegate: NSObject, AVAssetResourceLoaderDelegate {
     internal func prepareAsset(for url: URL) -> AVURLAsset? {
         
         errorStatus = .none
+
+        if ProcessInfo.processInfo.operatingSystemVersion.majorVersion <= 10 {
+            SodesLog("ResourceLoaderDelegate only supports iOS 11 and later.")
+            return nil
+        }
         
         guard url.hasPathExtension("mp3") else {
             SodesLog("Bad url: \(url)\nResourceLoaderDelegate only supports urls with an .mp3 path extension.")

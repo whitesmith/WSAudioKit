@@ -316,7 +316,13 @@ public class PlaybackController: NSObject {
         } else if let delegatedAsset = resourceLoaderDelegate.prepareAsset(for: source.remoteUrl) {
             // Enable automatic waiting when streaming over the network.
             if #available(iOS 10.0, *) {
-                player.automaticallyWaitsToMinimizeStalling = true
+                // BUG in iOS 9 and 10: it occurs while seeking a specific position of the current source using a streaming
+                //audio file where the `AppendBufferReferenceSubBlock` method from `com.apple.coremedia.audiomentor`
+                //does an endless loop. Next, if you call [`timeControlStatus`](https://developer.apple.com/documentation/avfoundation/avplayer/1643485-timecontrolstatus?preferredLanguage=occ) from AVPlayer when `automaticallyWaitsToMinimizeStalling`
+                // is true, then a deadlock will happen because the it is waiting for the buffer that doesn't finish.
+                //  - https://gist.github.com/ricardopereira/a789c9257e4c03d56fce9cf9e3c8c74f
+                //  - https://gist.github.com/ricardopereira/b895cab8b75c78df2e261140c487bb57
+                player.automaticallyWaitsToMinimizeStalling = ProcessInfo.processInfo.operatingSystemVersion.majorVersion > 10
             }
             asset = delegatedAsset
             playbackMode = .fromResourceLoader
@@ -330,9 +336,6 @@ public class PlaybackController: NSObject {
         }
         
         currentPlayerItem = AVPlayerItem(asset: asset)
-
-        player.pause()
-        player.replaceCurrentItem(with: nil)
 
         player.replaceCurrentItem(with: currentPlayerItem!)
     }
