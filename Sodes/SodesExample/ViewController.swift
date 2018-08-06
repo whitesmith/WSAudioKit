@@ -9,6 +9,7 @@
 import UIKit
 import SodesAudio
 import MediaPlayer
+import AVKit
 
 struct TestSource: PlaybackSource {
     let uniqueId: String = "abcxyz"
@@ -59,7 +60,34 @@ class ViewController: UIViewController {
         PlaybackController.shared.artworkProvider = self.artworkFetcher
 
         PlaybackController.shared.prepare(TestSource(), startTime: 0, playWhenReady: true)
-        
+
+        if #available(iOS 11.0, *) {
+            let routePickerView = AVRoutePickerView()
+            routePickerView.tintColor = playPauseButton.tintColor
+            routePickerView.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview(routePickerView)
+
+            NSLayoutConstraint.activate([
+                routePickerView.widthAnchor.constraint(equalToConstant: 40),
+                routePickerView.heightAnchor.constraint(equalToConstant: 40),
+                routePickerView.centerXAnchor.constraint(equalTo: playPauseButton.centerXAnchor),
+                routePickerView.bottomAnchor.constraint(equalTo: playPauseButton.topAnchor, constant: -10),
+            ])
+        }
+        else {
+            let volumeView = MPVolumeView()
+            volumeView.backgroundColor = .red
+            volumeView.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview(volumeView)
+
+            NSLayoutConstraint.activate([
+                volumeView.widthAnchor.constraint(equalToConstant: 300),
+                volumeView.heightAnchor.constraint(equalToConstant: 40),
+                volumeView.centerXAnchor.constraint(equalTo: playPauseButton.centerXAnchor),
+                volumeView.bottomAnchor.constraint(equalTo: playPauseButton.topAnchor, constant: -10),
+            ])
+        }
+
         let center = NotificationCenter.default
         
         center.addObserver(forName: PlaybackControllerNotification.DidUpdateElapsedTime.name, object: nil, queue: .main) { (note) in
