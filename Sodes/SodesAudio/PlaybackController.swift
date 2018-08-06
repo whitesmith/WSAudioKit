@@ -236,9 +236,15 @@ public class PlaybackController: NSObject {
     
     /// Designated initializer.
     public init(resourcesDirectory: URL, defaults: UserDefaults, customLoadingScheme: String = "playbackcontroller") {
-        
         player = AVPlayer()
-        
+
+        // Discussion (DTS 696294259, rdar://42881405)
+        // "Volume control is disabled when connected to Apple TV using AirPlay"
+        // Workaroung: set the “allowsExternalPlayback” property of your AVQueuePlayer to ‘false’.
+        //   This works by disallowing the routing of video playback to AirPlay,
+        //   and (as a side-effect) allows the pure audio playback.
+        player.allowsExternalPlayback = false
+
         self.resourceLoaderDelegate = ResourceLoaderDelegate(
             customLoadingScheme: customLoadingScheme,
             resourcesDirectory: resourcesDirectory,
