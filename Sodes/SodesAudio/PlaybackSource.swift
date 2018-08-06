@@ -26,23 +26,23 @@ public protocol PlaybackSource {
 
 internal extension PlaybackSource {
     
-    func nowPlayingInfo(image: UIImage? = nil, duration: TimeInterval? = nil, elapsedPlaybackTime: TimeInterval? = nil, rate: Double? = nil) -> [String: AnyObject] {
+    func nowPlayingInfo(image: UIImage? = nil, duration: TimeInterval? = nil, elapsedPlaybackTime: TimeInterval? = nil, rate: Double? = nil) -> [String: Any] {
         
-        var info: [String: AnyObject] = [:]
+        var info: [String: Any] = [:]
         
         if #available(iOS 10.0, *) {
             info[MPMediaItemPropertyMediaType] = MPNowPlayingInfoMediaType.audio.rawValue
         }
         
         if let title = title {
-            info[MPMediaItemPropertyTitle] = title as NSString
+            info[MPMediaItemPropertyTitle] = title
         }
         if let albumTitle = albumTitle {
-            info[MPMediaItemPropertyAlbumTitle] = albumTitle as NSString
+            info[MPMediaItemPropertyAlbumTitle] = albumTitle
         }
         if let artist = artist {
-            info[MPMediaItemPropertyArtist] = artist as NSString
-            info[MPMediaItemPropertyAlbumArtist] = artist as NSString
+            info[MPMediaItemPropertyArtist] = artist
+            info[MPMediaItemPropertyAlbumArtist] = artist
         }
         if let image = image {
             let artwork: MPMediaItemArtwork
