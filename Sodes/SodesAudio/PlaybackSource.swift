@@ -30,7 +30,9 @@ internal extension PlaybackSource {
         
         var info: [String: AnyObject] = [:]
         
-        info[MPMediaItemPropertyMediaType] = NSNumber(value: mediaType.rawValue)
+        if #available(iOS 10.0, *) {
+            info[MPMediaItemPropertyMediaType] = MPNowPlayingInfoMediaType.audio.rawValue
+        }
         
         if let title = title {
             info[MPMediaItemPropertyTitle] = title as NSString
