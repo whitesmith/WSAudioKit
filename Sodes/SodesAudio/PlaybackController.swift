@@ -246,10 +246,27 @@ public class PlaybackController: NSObject {
         )
         
         super.init()
-        
-        _ = try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
-        _ = try? AVAudioSession.sharedInstance().setMode(AVAudioSessionModeSpokenAudio)
-        
+
+        let audioSession = AVAudioSession.sharedInstance()
+
+        if #available(iOS 11.0, *) {
+            do {
+                try audioSession.setCategory(
+                    AVAudioSessionCategoryPlayback,
+                    mode: AVAudioSessionModeDefault,
+                    routeSharingPolicy: .longForm
+                )
+                try audioSession.setActive(true)
+            }
+            catch {
+                print(error)
+            }
+        } else {
+            // Fallback on earlier versions
+            _ = try! audioSession.setCategory(AVAudioSessionCategoryPlayback)
+            _ = try! audioSession.setMode(AVAudioSessionModeSpokenAudio)
+        }
+
         resourceLoaderDelegate.delegate = self
         registerCommandHandlers()
         
@@ -276,6 +293,13 @@ public class PlaybackController: NSObject {
             object: nil,
             queue: .main,
             using: handleAudioSessionInterruptionNotification
+        )
+
+        NotificationCenter.default.addObserver(
+            forName: .AVAudioSessionRouteChange,
+            object: nil,
+            queue: .main,
+            using: handleAudioSessionRouteChangeNotification
         )
     }
 
@@ -353,6 +377,15 @@ public class PlaybackController: NSObject {
         lastPrepTime = nil
         hasPlayedYet = false
         currentArtwork = nil
+    }
+
+    public func reasonForWaitingToPlay() -> String? {
+        if #available(iOS 10.0, *) {
+            return player.reasonForWaitingToPlay
+        }
+        else {
+            return nil
+        }
     }
     
     /// Resumes playback if possible.
@@ -537,7 +570,6 @@ fileprivate extension PlaybackController {
     }
     
     fileprivate func handleAudioSessionInterruptionNotification(note: Notification) {
-        
         SodesLog(note)
         
         guard let typeNumber = note.userInfo?[AVAudioSessionInterruptionTypeKey] as? NSNumber else {return}
@@ -587,7 +619,40 @@ fileprivate extension PlaybackController {
                 }
             }
         }
-        
+    }
+
+    fileprivate func handleAudioSessionRouteChangeNotification(notification: Notification) {
+        SodesLog(notification)
+
+        var headphonesConnected = false
+        guard let userInfo = notification.userInfo,
+            let reasonValue = userInfo[AVAudioSessionRouteChangeReasonKey] as? UInt,
+            let reason = AVAudioSessionRouteChangeReason(rawValue: reasonValue),
+            let previousRoute = userInfo[AVAudioSessionRouteChangePreviousRouteKey] as? AVAudioSessionRouteDescription else {
+                return
+        }
+
+        switch reason {
+        case .newDeviceAvailable:
+            let session = AVAudioSession.sharedInstance()
+            for output in session.currentRoute.outputs where output.portType == AVAudioSessionPortHeadphones {
+                headphonesConnected = true
+                break
+            }
+        case .oldDeviceUnavailable:
+            if let previousRoute =
+                userInfo[AVAudioSessionRouteChangePreviousRouteKey] as? AVAudioSessionRouteDescription {
+                for output in previousRoute.outputs where output.portType == AVAudioSessionPortHeadphones {
+                    headphonesConnected = false
+                    break
+                }
+            }
+        default: ()
+        }
+
+        SodesLog("Headphones: \(headphonesConnected)")
+        SodesLog(reason)
+        SodesLog(previousRoute)
     }
     
     fileprivate func playerDidChangeTimeControlStatus() {
@@ -647,7 +712,8 @@ fileprivate extension PlaybackController {
                 }
                 else if shouldPlay {
                     play()
-                } else {
+                }
+                else {
                     status = .paused(manually: true)
                 }
             }
@@ -704,7 +770,6 @@ extension PlaybackController: ResourceLoaderDelegateDelegate {
 fileprivate extension PlaybackController {
     
     func registerCommandHandlers() {
-        
         let center = MPRemoteCommandCenter.shared()
         
         // Playback Commands
