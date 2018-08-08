@@ -582,10 +582,15 @@ fileprivate extension PlaybackController {
         guard let type = AVAudioSessionInterruptionType(rawValue: typeNumber.uintValue) else {return}
         
         switch type {
-            
+
         case .began:
-            isInterrupted = true
-            
+            if case .paused(let manually) = status, manually == true {
+                break
+            }
+            else {
+                isInterrupted = true
+            }
+
         case .ended:
             isInterrupted = false
             let optionNumber = note.userInfo?[AVAudioSessionInterruptionOptionKey] as? NSNumber
