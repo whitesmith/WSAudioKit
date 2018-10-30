@@ -59,6 +59,12 @@ fileprivate enum PlaybackMode: String {
     case fromFileUrl
 }
 
+public enum ResourceLoaderMode: String {
+    case automaticDetection
+    case system
+    case sodes
+}
+
 /// Manages playback of audio from a remote or local audio file.
 public class PlaybackController: NSObject {
     
@@ -231,11 +237,14 @@ public class PlaybackController: NSObject {
     
     /// The current playback mode.
     fileprivate var playbackMode: PlaybackMode = .fromRemoteUrl
+
+    /// The current resource loader mode.
+    public fileprivate(set) var resourceLoaderMode: ResourceLoaderMode = .automaticDetection
     
     // MARK: Init/Deinit
     
     /// Designated initializer.
-    public init(resourcesDirectory: URL, defaults: UserDefaults, customLoadingScheme: String = "playbackcontroller") {
+    public init(resourcesDirectory: URL, defaults: UserDefaults, customLoadingScheme: String = "playbackcontroller", resourceLoaderMode: ResourceLoaderMode = .automaticDetection) {
         player = AVPlayer()
 
         // Discussion (DTS 696294259, rdar://42881405)
@@ -245,6 +254,7 @@ public class PlaybackController: NSObject {
         //   and (as a side-effect) allows the pure audio playback.
         player.allowsExternalPlayback = false
 
+        self.resourceLoaderMode = resourceLoaderMode
         self.resourceLoaderDelegate = ResourceLoaderDelegate(
             customLoadingScheme: customLoadingScheme,
             resourcesDirectory: resourcesDirectory,
@@ -343,7 +353,8 @@ public class PlaybackController: NSObject {
             }
             asset = AVURLAsset(url: fileUrl)
             playbackMode = .fromFileUrl
-        } else if let delegatedAsset = resourceLoaderDelegate.prepareAsset(for: source.remoteUrl) {
+        }
+        else if let delegatedAsset = resourceLoaderDelegate.prepareAsset(for: source.remoteUrl), resourceLoaderMode == .automaticDetection || resourceLoaderMode == .sodes {
             // Enable automatic waiting when streaming over the network.
             if #available(iOS 10.0, *) {
                 // BUG in iOS 9 and 10: it occurs while seeking a specific position of the current source using a streaming
@@ -356,7 +367,8 @@ public class PlaybackController: NSObject {
             }
             asset = delegatedAsset
             playbackMode = .fromResourceLoader
-        } else {
+        }
+        else {
             // Enable automatic waiting when streaming over the network.
             if #available(iOS 10.0, *) {
                 player.automaticallyWaitsToMinimizeStalling = true
