@@ -1,4 +1,12 @@
-# sodes-audio-example
+# Sodes Audio Whitesmith version
+
+We turned this into a library and it's possible to use it with Carthage:
+
+```
+github "whitesmith/WSAudioKit"
+```
+
+## sodes-audio-example
 
 An example AVAssetResourceLoaderDelegate implementation. A variation of this will be used in **’sodes**, a podcast app I'm working on.
 
