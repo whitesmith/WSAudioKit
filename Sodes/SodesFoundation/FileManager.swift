@@ -47,7 +47,7 @@ public extension FileManager {
     
     public func removeDirectory(_ directory: URL) -> Bool {
         do {
-            try removeItem(at: directory)
+            try removeItem(atPath: directory.absoluteString)
         }
         catch {
             return false
@@ -57,7 +57,7 @@ public extension FileManager {
     
     public func removeFile(at url: URL) -> Bool {
         do {
-            try removeItem(at: url)
+            try removeItem(atPath: url.absoluteString)
         }
         catch {
             return false
