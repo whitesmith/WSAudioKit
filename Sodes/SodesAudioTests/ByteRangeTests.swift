@@ -18,7 +18,7 @@ class ByteRangeTests: XCTestCase {
         XCTAssertEqual(range.lowerBound, 0)
         XCTAssertEqual(range.upperBound, 10)
         XCTAssertEqual(range.lastValidIndex, 9)
-        XCTAssertEqual(range.subdataRange, Range<Int>((0..<10)))
+        XCTAssertEqual(range.subdataRange, 0..<10)
     }
     
     // MARK: Leading

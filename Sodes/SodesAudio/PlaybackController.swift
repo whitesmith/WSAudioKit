@@ -267,11 +267,7 @@ public class PlaybackController: NSObject {
 
         if #available(iOS 11.0, *) {
             do {
-                try audioSession.setCategory(
-                    convertFromAVAudioSessionCategory(AVAudioSession.Category.playback),
-                    mode: convertFromAVAudioSessionMode(AVAudioSession.Mode.default),
-                    routeSharingPolicy: .longForm
-                )
+                try audioSession.setCategory(.playback, mode: .default, policy: .longForm)
                 try audioSession.setActive(true)
             }
             catch {
@@ -279,8 +275,8 @@ public class PlaybackController: NSObject {
             }
         } else {
             // Fallback on earlier versions
-            _ = try! audioSession.setCategory(convertFromAVAudioSessionCategory(AVAudioSession.Category.playback))
-            _ = try! audioSession.setMode(AVAudioSession.Mode.spokenAudio)
+            _ = try! audioSession.setCategory(.playback)
+            _ = try! audioSession.setMode(.spokenAudio)
         }
 
         resourceLoaderDelegate.delegate = self
@@ -532,12 +528,12 @@ extension PlaybackController {
 
 fileprivate extension PlaybackController {
     
-    fileprivate func post(_ notification: PlaybackControllerNotification, userInfo: [String: Any]? = nil) {
+    func post(_ notification: PlaybackControllerNotification, userInfo: [String: Any]? = nil) {
         let note = Notification(name: notification.name, object: self, userInfo: userInfo)
         NotificationCenter.default.post(note)
     }
     
-    fileprivate func updateNowPlayingInfo() {
+    func updateNowPlayingInfo() {
         let info = currentSource?.nowPlayingInfo(
             image: currentArtwork,
             duration: duration,
@@ -547,7 +543,7 @@ fileprivate extension PlaybackController {
         MPNowPlayingInfoCenter.default().nowPlayingInfo = info
     }
     
-    fileprivate func updateArtwork() {
+    func updateArtwork() {
         if let image = currentSource?.artworkImage {
             currentArtwork = image
         }
@@ -558,7 +554,7 @@ fileprivate extension PlaybackController {
         }
     }
     
-    fileprivate func didSetPlayerItem(oldValue: AVPlayerItem?) {
+    func didSetPlayerItem(oldValue: AVPlayerItem?) {
         let keyPaths = ["status", "duration", "loadedTimeRanges"]
         oldValue?.remove(observer: self, for: keyPaths, context: &PlaybackControllerContext)
         currentPlayerItem?.add(observer: self, for: keyPaths, context: &PlaybackControllerContext)
@@ -587,14 +583,13 @@ fileprivate extension PlaybackController {
         }
     }
     
-    fileprivate func handleAudioSessionInterruptionNotification(note: Notification) {
+    func handleAudioSessionInterruptionNotification(note: Notification) {
         SodesLog(note)
         
         guard let typeNumber = note.userInfo?[AVAudioSessionInterruptionTypeKey] as? NSNumber else {return}
         guard let type = AVAudioSession.InterruptionType(rawValue: typeNumber.uintValue) else {return}
         
         switch type {
-
         case .began:
             if case .paused(let manually) = status, manually == true {
                 break
@@ -613,13 +608,15 @@ fileprivate extension PlaybackController {
                 case .playing:
                     if shouldResume {
                         play()
-                    } else {
+                    }
+                    else {
                         pause(manually: false)
                     }
                 case .paused(let manually):
                     if manually {
                         // Do not resume! The user manually paused.
-                    } else {
+                    }
+                    else {
                         play()
                     }
                 case .preparing(_, let startTime):
@@ -627,7 +624,8 @@ fileprivate extension PlaybackController {
                 case .idle, .error(_), .buffering:
                     break
                 }
-            } else {
+            }
+            else {
                 switch status {
                 case .playing:
                     play()
@@ -641,10 +639,13 @@ fileprivate extension PlaybackController {
                     break
                 }
             }
+
+        default:
+            fatalError("Missing \(type) implementation")
         }
     }
 
-    fileprivate func handleAudioSessionRouteChangeNotification(notification: Notification) {
+    func handleAudioSessionRouteChangeNotification(notification: Notification) {
         SodesLog(notification)
 
         var headphonesConnected = false
@@ -678,7 +679,7 @@ fileprivate extension PlaybackController {
         SodesLog(previousRoute)
     }
     
-    fileprivate func playerDidChangeTimeControlStatus() {
+    func playerDidChangeTimeControlStatus() {
         if #available(iOS 10.0, *) {
             switch player.timeControlStatus {
             case .paused:
@@ -697,6 +698,8 @@ fileprivate extension PlaybackController {
                 case .paused, .playing, .buffering:
                     status = .buffering
                 }
+            default:
+                fatalError("Missing \(player.timeControlStatus) implementation")
             }
         } else {
             // Discussion:
@@ -719,7 +722,7 @@ fileprivate extension PlaybackController {
         updateNowPlayingInfo()
     }
 
-    fileprivate func playerItemDidChangeStatus(_ item: AVPlayerItem) {
+    func playerItemDidChangeStatus(_ item: AVPlayerItem) {
         switch item.status {
         case .readyToPlay:
             if case .preparing(let shouldPlay, let startTime) = status {
@@ -746,6 +749,8 @@ fileprivate extension PlaybackController {
         case .unknown:
             SodesLog("Item status unknown")
             status = .error(nil)
+        default:
+            fatalError("Missing \(item.status) implementation")
         }
     }
     

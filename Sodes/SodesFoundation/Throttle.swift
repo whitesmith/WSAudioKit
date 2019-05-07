@@ -31,7 +31,7 @@ public class Throttle {
         timer = {
             let timer = Timer(
                 timeInterval: minimumInterval,
-                target: timerTarget,
+                target: timerTarget!,
                 selector: #selector(TimerTarget.timerFired),
                 userInfo: nil,
                 repeats: true

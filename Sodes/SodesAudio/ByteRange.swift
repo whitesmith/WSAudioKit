@@ -113,7 +113,7 @@ func combine(_ ranges: [ByteRange]) -> [ByteRange] {
             combinedRanges.append(uncheckedRange)
         } else {
             for range in intersectingRanges {
-                if let index = combinedRanges.index(of: range) {
+                if let index = combinedRanges.firstIndex(of: range) {
                     combinedRanges.remove(at: index)
                 }
             }
