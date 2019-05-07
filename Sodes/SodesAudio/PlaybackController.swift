@@ -268,8 +268,8 @@ public class PlaybackController: NSObject {
         if #available(iOS 11.0, *) {
             do {
                 try audioSession.setCategory(
-                    AVAudioSessionCategoryPlayback,
-                    mode: AVAudioSessionModeDefault,
+                    convertFromAVAudioSessionCategory(AVAudioSession.Category.playback),
+                    mode: convertFromAVAudioSessionMode(AVAudioSession.Mode.default),
                     routeSharingPolicy: .longForm
                 )
                 try audioSession.setActive(true)
@@ -279,8 +279,8 @@ public class PlaybackController: NSObject {
             }
         } else {
             // Fallback on earlier versions
-            _ = try! audioSession.setCategory(AVAudioSessionCategoryPlayback)
-            _ = try! audioSession.setMode(AVAudioSessionModeSpokenAudio)
+            _ = try! audioSession.setCategory(convertFromAVAudioSessionCategory(AVAudioSession.Category.playback))
+            _ = try! audioSession.setMode(AVAudioSession.Mode.spokenAudio)
         }
 
         resourceLoaderDelegate.delegate = self
@@ -305,14 +305,14 @@ public class PlaybackController: NSObject {
         }
         
         NotificationCenter.default.addObserver(
-            forName: .AVAudioSessionInterruption,
+            forName: AVAudioSession.interruptionNotification,
             object: nil,
             queue: .main,
             using: handleAudioSessionInterruptionNotification
         )
 
         NotificationCenter.default.addObserver(
-            forName: .AVAudioSessionRouteChange,
+            forName: AVAudioSession.routeChangeNotification,
             object: nil,
             queue: .main,
             using: handleAudioSessionRouteChangeNotification
@@ -399,7 +399,7 @@ public class PlaybackController: NSObject {
 
     public func reasonForWaitingToPlay() -> String? {
         if #available(iOS 10.0, *) {
-            return player.reasonForWaitingToPlay
+            return convertFromOptionalAVPlayerWaitingReason(player.reasonForWaitingToPlay)
         }
         else {
             return nil
@@ -458,8 +458,8 @@ public class PlaybackController: NSObject {
         if accurately {
             player.seek(
                 to: time.asCMTime,
-                toleranceBefore: kCMTimeZero,
-                toleranceAfter: kCMTimeZero,
+                toleranceBefore: CMTime.zero,
+                toleranceAfter: CMTime.zero,
                 completionHandler: { [weak self] (finished) in
                     if finished {
                         self?.updateNowPlayingInfo()
@@ -562,7 +562,7 @@ fileprivate extension PlaybackController {
         let keyPaths = ["status", "duration", "loadedTimeRanges"]
         oldValue?.remove(observer: self, for: keyPaths, context: &PlaybackControllerContext)
         currentPlayerItem?.add(observer: self, for: keyPaths, context: &PlaybackControllerContext)
-        currentPlayerItem?.audioTimePitchAlgorithm = AVAudioTimePitchAlgorithmTimeDomain
+        currentPlayerItem?.audioTimePitchAlgorithm = AVAudioTimePitchAlgorithm.timeDomain
         if let observer = currentPlayerItemObserver {
             NotificationCenter.default.removeObserver(observer)
         }
@@ -591,7 +591,7 @@ fileprivate extension PlaybackController {
         SodesLog(note)
         
         guard let typeNumber = note.userInfo?[AVAudioSessionInterruptionTypeKey] as? NSNumber else {return}
-        guard let type = AVAudioSessionInterruptionType(rawValue: typeNumber.uintValue) else {return}
+        guard let type = AVAudioSession.InterruptionType(rawValue: typeNumber.uintValue) else {return}
         
         switch type {
 
@@ -607,7 +607,7 @@ fileprivate extension PlaybackController {
             isInterrupted = false
             let optionNumber = note.userInfo?[AVAudioSessionInterruptionOptionKey] as? NSNumber
             if let number = optionNumber {
-                let options = AVAudioSessionInterruptionOptions(rawValue: number.uintValue)
+                let options = AVAudioSession.InterruptionOptions(rawValue: number.uintValue)
                 let shouldResume = options.contains(.shouldResume)
                 switch status {
                 case .playing:
@@ -650,7 +650,7 @@ fileprivate extension PlaybackController {
         var headphonesConnected = false
         guard let userInfo = notification.userInfo,
             let reasonValue = userInfo[AVAudioSessionRouteChangeReasonKey] as? UInt,
-            let reason = AVAudioSessionRouteChangeReason(rawValue: reasonValue),
+            let reason = AVAudioSession.RouteChangeReason(rawValue: reasonValue),
             let previousRoute = userInfo[AVAudioSessionRouteChangePreviousRouteKey] as? AVAudioSessionRouteDescription else {
                 return
         }
@@ -658,14 +658,14 @@ fileprivate extension PlaybackController {
         switch reason {
         case .newDeviceAvailable:
             let session = AVAudioSession.sharedInstance()
-            for output in session.currentRoute.outputs where output.portType == AVAudioSessionPortHeadphones {
+            for output in session.currentRoute.outputs where convertFromAVAudioSessionPort(output.portType) == convertFromAVAudioSessionPort(AVAudioSession.Port.headphones) {
                 headphonesConnected = true
                 break
             }
         case .oldDeviceUnavailable:
             if let previousRoute =
                 userInfo[AVAudioSessionRouteChangePreviousRouteKey] as? AVAudioSessionRouteDescription {
-                for output in previousRoute.outputs where output.portType == AVAudioSessionPortHeadphones {
+                for output in previousRoute.outputs where convertFromAVAudioSessionPort(output.portType) == convertFromAVAudioSessionPort(AVAudioSession.Port.headphones) {
                     headphonesConnected = false
                     break
                 }
@@ -887,4 +887,25 @@ fileprivate extension DispatchTime {
         return DispatchTime.now() + Double(Int64(seconds * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
     }
     
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromAVAudioSessionCategory(_ input: AVAudioSession.Category) -> String {
+	return input.rawValue
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromAVAudioSessionMode(_ input: AVAudioSession.Mode) -> String {
+	return input.rawValue
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromOptionalAVPlayerWaitingReason(_ input: AVPlayer.WaitingReason?) -> String? {
+	guard let input = input else { return nil }
+	return input.rawValue
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromAVAudioSessionPort(_ input: AVAudioSession.Port) -> String {
+	return input.rawValue
 }

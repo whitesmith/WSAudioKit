@@ -29,9 +29,9 @@ extension URLResponse {
             let firstPart = fullString.split(separator: "/").map({String($0)}).first
         {
             if let prefixRange = firstPart.range(of: "bytes ") {
-                let rangeString = firstPart.substring(from: prefixRange.upperBound)
+                let rangeString = String(firstPart[prefixRange.upperBound...])
                 let comps = rangeString.components(separatedBy: "-")
-                let ints = comps.flatMap{Int64($0)}
+                let ints = comps.compactMap{Int64($0)}
                 if ints.count == 2 {
                     return (ints[0]..<(ints[1]+1))
                 }

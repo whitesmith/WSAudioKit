@@ -42,7 +42,7 @@ open class WorkOperation: Operation {
         guard !isCancelled else {return}
         markAsRunning()
         performQueue.async {
-            self.work { (result) in
+            self.work {
                 onMainQueue {
                     guard !self.isCancelled else {return}
                     self.completion()

@@ -23,7 +23,7 @@ internal extension UInt {
 
 internal extension TimeInterval {
     var asCMTime: CMTime {
-        return CMTimeMakeWithSeconds(self, preferredTimescale)
+        return CMTimeMakeWithSeconds(self, preferredTimescale: preferredTimescale)
     }
 }
 
