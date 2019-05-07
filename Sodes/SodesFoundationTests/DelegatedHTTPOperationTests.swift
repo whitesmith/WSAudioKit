@@ -36,7 +36,7 @@ class DelegatedHTTPOperationTests: XCTestCase {
                     XCTAssertEqual(self.receivedBytes, received)
                     break
                 case .error(let r, let e):
-                    SodesLog("response: \(r), error: \(e)")
+                    SodesLog("response: \(String(describing: r)), error: \(String(describing: e))")
                     XCTFail()
                     break
                 }
@@ -57,7 +57,7 @@ extension DelegatedHTTPOperationTests: HTTPOperationDataDelegate {
     
     func delegatedHTTPOperation(_ operation: DelegatedHTTPOperation, didReceiveData data: Data) {
         XCTAssertEqual(OperationQueue.current, delegateQueue)
-        receivedBytes += data.count
+        receivedBytes = receivedBytes + Int64(data.count)
     }
     
 }

@@ -59,7 +59,7 @@ class ByteRangeSerializationTests: XCTestCase {
         XCTAssertEqual(contentLength, output!.1.contentLength)
         XCTAssertEqual(inputRanges, output!.0)
         XCTAssertEqual("e", output!.1.etag)
-        XCTAssertEqualWithAccuracy(inputDate.timeIntervalSince(output!.1.lastModified!), 0.0, accuracy: 1.0)
+        XCTAssertEqual(inputDate.timeIntervalSince(output!.1.lastModified!), 0.0, accuracy: 1.0)
     }
     
     func testItSavesByteRangesTwiceAndReadsThemBack() {
@@ -79,14 +79,14 @@ class ByteRangeSerializationTests: XCTestCase {
         XCTAssertEqual(contentLength, output1!.1.contentLength)
         XCTAssertEqual(inputRanges1, output1!.0)
         XCTAssertEqual("e", output1!.1.etag)
-        XCTAssertEqualWithAccuracy(inputDate.timeIntervalSince(output1!.1.lastModified!), 0.0, accuracy: 1.0)
+        XCTAssertEqual(inputDate.timeIntervalSince(output1!.1.lastModified!), 0.0, accuracy: 1.0)
         
         XCTAssertTrue(FileManager.default.save(byteRanges: inputRanges2, cacheInfo: inputInfo, to: fileUrl))
         let output2 = FileManager.default.readRanges(at: fileUrl)
         XCTAssertEqual(contentLength, output2!.1.contentLength)
         XCTAssertEqual(inputRanges2, output2!.0)
         XCTAssertEqual("e", output2!.1.etag)
-        XCTAssertEqualWithAccuracy(inputDate.timeIntervalSince(output2!.1.lastModified!), 0.0, accuracy: 1.0)
+        XCTAssertEqual(inputDate.timeIntervalSince(output2!.1.lastModified!), 0.0, accuracy: 1.0)
         
     }
 

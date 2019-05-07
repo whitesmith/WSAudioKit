@@ -10,7 +10,7 @@ import Foundation
 
 public extension FileManager {
     
-    public func cachesDirectory() -> URL? {
+    func cachesDirectory() -> URL? {
         let directories = urls(
             for: .cachesDirectory,
             in: .userDomainMask
@@ -18,7 +18,7 @@ public extension FileManager {
         return directories.first
     }
     
-    public func documentsDirectory() -> URL? {
+    func documentsDirectory() -> URL? {
         let directories = urls(
             for: .documentDirectory,
             in: .userDomainMask
@@ -26,7 +26,7 @@ public extension FileManager {
         return directories.first
     }
 
-    public func createDirectoryAt(_ url: URL) -> Bool {
+    func createDirectoryAt(_ url: URL) -> Bool {
         do {
             try createDirectory(
                 at: url,
@@ -40,12 +40,12 @@ public extension FileManager {
         return true
     }
     
-    public func createSubdirectory(_ name: String, atUrl url: URL) -> Bool {
+    func createSubdirectory(_ name: String, atUrl url: URL) -> Bool {
         let subdirectoryUrl = url.appendingPathComponent(name, isDirectory: true)
         return self.createDirectoryAt(subdirectoryUrl)
     }
     
-    public func removeDirectory(_ directory: URL) -> Bool {
+    func removeDirectory(_ directory: URL) -> Bool {
         do {
             try removeItem(atPath: directory.absoluteString)
         }
@@ -55,7 +55,7 @@ public extension FileManager {
         return true
     }
     
-    public func removeFile(at url: URL) -> Bool {
+    func removeFile(at url: URL) -> Bool {
         do {
             try removeItem(atPath: url.absoluteString)
         }
