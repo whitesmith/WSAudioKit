@@ -37,7 +37,7 @@ public class Throttle {
                 repeats: true
             )
             timer.tolerance = minimumInterval * 0.5
-            RunLoop.main.add(timer, forMode: .commonModes)
+            RunLoop.main.add(timer, forMode: RunLoop.Mode.common)
             return timer
         }()
     }

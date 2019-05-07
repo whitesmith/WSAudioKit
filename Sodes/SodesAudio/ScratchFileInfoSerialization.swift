@@ -38,7 +38,7 @@ extension PropertyListSerialization {
         {
             return nil
         }
-        let byteRanges = strings.flatMap{range(from: $0)}
+        let byteRanges = strings.compactMap{range(from: $0)}
         let info = ScratchFileInfo.CacheInfo(
             contentLength: (plist["contentLength"] as? NSNumber)?.int64Value,
             etag: plist["etag"] as? String,

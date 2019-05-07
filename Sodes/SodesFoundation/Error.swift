@@ -10,7 +10,7 @@ import Foundation
 
 public func description(of optionalError: Error?) -> String {
     if let error = optionalError {
-        let type = type(of: error)
+        let type = Swift.type(of: error)
         if type == NSError.self {
             let nsError = error as NSError
             return nsError.domain + "_\(nsError.code)"
