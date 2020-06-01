@@ -267,7 +267,7 @@ public class PlaybackController: NSObject {
 
         if #available(iOS 11.0, *) {
             do {
-                try audioSession.setCategory(.playback, mode: .default, policy: .longForm)
+                try audioSession.setCategory(.playback, mode: .spokenAudio, policy: .longForm)
                 try audioSession.setActive(true)
             }
             catch {
