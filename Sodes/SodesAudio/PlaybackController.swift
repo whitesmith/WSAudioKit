@@ -265,7 +265,16 @@ public class PlaybackController: NSObject {
 
         let audioSession = AVAudioSession.sharedInstance()
 
-        if #available(iOS 11.0, *) {
+        if #available(iOS 13.0, *) {
+            do {
+                try audioSession.setCategory(.playback, mode: .spokenAudio, policy: .longFormAudio)
+                try audioSession.setActive(true)
+            }
+            catch {
+                print(error)
+            }
+        }
+        else if #available(iOS 11.0, *) {
             do {
                 try audioSession.setCategory(.playback, mode: .spokenAudio, policy: .longForm)
                 try audioSession.setActive(true)
@@ -273,7 +282,8 @@ public class PlaybackController: NSObject {
             catch {
                 print(error)
             }
-        } else {
+        }
+        else {
             // Fallback on earlier versions
             _ = try! audioSession.setCategory(.playback)
             _ = try! audioSession.setMode(.spokenAudio)
