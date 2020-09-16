@@ -10,6 +10,7 @@ import Foundation
 import AVFoundation
 import SodesFoundation
 import SwiftableFileHandle
+// TODO: replace with https://developer.apple.com/documentation/cryptokit
 import CryptoSwift
 
 protocol ResourceLoaderDelegateDelegate: class {
