@@ -10,7 +10,6 @@ import Foundation
 import AVFoundation
 import MediaPlayer
 import UIKit
-import SodesFoundation
 
 /// Used to obtain album art.
 public protocol ArtworkProvider: class {
@@ -60,9 +59,7 @@ fileprivate enum PlaybackMode: String {
 }
 
 public enum ResourceLoaderMode: String {
-    case automaticDetection
     case system
-    case sodes
 }
 
 /// Manages playback of audio from a remote or local audio file.
@@ -151,7 +148,7 @@ public class PlaybackController: NSObject {
     /// The current status. When changed, a notification is posted.
     public fileprivate(set) var status: Status = .idle {
         didSet {
-            SodesLog(status)
+            DebugLog(status)
             updateNowPlayingInfo()
             post(.DidUpdateStatus)
         }
@@ -202,9 +199,6 @@ public class PlaybackController: NSObject {
     /// The lone AVPlayer.
     fileprivate let player: AVPlayer
     
-    /// The lone resource loading delegate.
-    fileprivate let resourceLoaderDelegate: ResourceLoaderDelegate
-    
     /// The preferred time interval for elapsed time callbacks.
     fileprivate let periodicTimeInterval = TimeInterval(1.0/30.0).asCMTime
     
@@ -239,12 +233,12 @@ public class PlaybackController: NSObject {
     fileprivate var playbackMode: PlaybackMode = .fromRemoteUrl
 
     /// The current resource loader mode.
-    public fileprivate(set) var resourceLoaderMode: ResourceLoaderMode = .automaticDetection
+    public fileprivate(set) var resourceLoaderMode: ResourceLoaderMode = .system
     
     // MARK: Init/Deinit
     
     /// Designated initializer.
-    public init(resourcesDirectory: URL, defaults: UserDefaults, customLoadingScheme: String = "playbackcontroller", resourceLoaderMode: ResourceLoaderMode = .automaticDetection) {
+    public init(resourcesDirectory: URL, defaults: UserDefaults, customLoadingScheme: String = "playbackcontroller", resourceLoaderMode: ResourceLoaderMode = .system) {
         player = AVPlayer()
 
         // Discussion (DTS 696294259, rdar://42881405)
@@ -255,11 +249,6 @@ public class PlaybackController: NSObject {
         player.allowsExternalPlayback = false
 
         self.resourceLoaderMode = resourceLoaderMode
-        self.resourceLoaderDelegate = ResourceLoaderDelegate(
-            customLoadingScheme: customLoadingScheme,
-            resourcesDirectory: resourcesDirectory,
-            defaults: defaults
-        )
         
         super.init()
 
@@ -289,7 +278,6 @@ public class PlaybackController: NSObject {
             _ = try! audioSession.setMode(.spokenAudio)
         }
 
-        resourceLoaderDelegate.delegate = self
         registerCommandHandlers()
         
         player.addObserver(self, forKeyPath: "timeControlStatus", options: .new, context: &PlaybackControllerContext)
@@ -303,7 +291,7 @@ public class PlaybackController: NSObject {
                         this.hasPlayedYet = true
                         if let lastPrepTime = this.lastPrepTime {
                             let delay = Date().timeIntervalSince(lastPrepTime)
-                            SodesLog("Latency was: \(delay) seconds")
+                            DebugLog("Latency was: \(delay) seconds")
                         }
                     }
                 }
@@ -326,7 +314,7 @@ public class PlaybackController: NSObject {
     }
 
     deinit {
-        SodesLog("Deinitialized")
+        DebugLog("Deinitialized")
     }
     
     // MARK: Public Methods
@@ -359,20 +347,6 @@ public class PlaybackController: NSObject {
             }
             asset = AVURLAsset(url: fileUrl)
             playbackMode = .fromFileUrl
-        }
-        else if let delegatedAsset = resourceLoaderDelegate.prepareAsset(for: source.remoteUrl), resourceLoaderMode == .automaticDetection || resourceLoaderMode == .sodes {
-            // Enable automatic waiting when streaming over the network.
-            if #available(iOS 10.0, *) {
-                // BUG in iOS 9 and 10: it occurs while seeking a specific position of the current source using a streaming
-                //audio file where the `AppendBufferReferenceSubBlock` method from `com.apple.coremedia.audiomentor`
-                //does an endless loop. Next, if you call [`timeControlStatus`](https://developer.apple.com/documentation/avfoundation/avplayer/1643485-timecontrolstatus?preferredLanguage=occ) from AVPlayer when `automaticallyWaitsToMinimizeStalling`
-                // is true, then a deadlock will happen because the it is waiting for the buffer that doesn't finish.
-                //  - https://gist.github.com/ricardopereira/a789c9257e4c03d56fce9cf9e3c8c74f
-                //  - https://gist.github.com/ricardopereira/b895cab8b75c78df2e261140c487bb57
-                player.automaticallyWaitsToMinimizeStalling = ProcessInfo.processInfo.operatingSystemVersion.majorVersion > 10
-            }
-            asset = delegatedAsset
-            playbackMode = .fromResourceLoader
         }
         else {
             // Enable automatic waiting when streaming over the network.
@@ -594,7 +568,7 @@ fileprivate extension PlaybackController {
     }
     
     func handleAudioSessionInterruptionNotification(note: Notification) {
-        SodesLog(note)
+        DebugLog(note)
         
         guard let typeNumber = note.userInfo?[AVAudioSessionInterruptionTypeKey] as? NSNumber else {return}
         guard let type = AVAudioSession.InterruptionType(rawValue: typeNumber.uintValue) else {return}
@@ -656,7 +630,7 @@ fileprivate extension PlaybackController {
     }
 
     func handleAudioSessionRouteChangeNotification(notification: Notification) {
-        SodesLog(notification)
+        DebugLog(notification)
 
         var headphonesConnected = false
         guard let userInfo = notification.userInfo,
@@ -684,9 +658,9 @@ fileprivate extension PlaybackController {
         default: ()
         }
 
-        SodesLog("Headphones: \(headphonesConnected)")
-        SodesLog(reason)
-        SodesLog(previousRoute)
+        DebugLog("Headphones: \(headphonesConnected)")
+        DebugLog(reason)
+        DebugLog(previousRoute)
     }
     
     func playerDidChangeTimeControlStatus() {
@@ -754,50 +728,13 @@ fileprivate extension PlaybackController {
                 }
             }
         case .failed:
-            SodesLog("Item status failed: \(item.error?.localizedDescription ?? "unknown error")")
+            DebugLog("Item status failed: \(item.error?.localizedDescription ?? "unknown error")")
             status = .error(item.error)
         case .unknown:
-            SodesLog("Item status unknown")
+            DebugLog("Item status unknown")
             status = .error(nil)
         default:
             fatalError("Missing \(item.status) implementation")
-        }
-    }
-    
-}
-
-// MARK: ResourceLoaderDelegateDelegate
-
-extension PlaybackController: ResourceLoaderDelegateDelegate {
-    
-    func resourceLoaderDelegate(_ delegate: ResourceLoaderDelegate, didEncounter error: Error?) {
-        if let error = error as? SodesAudioError {
-            switch error {
-            case .byteRangeAccessNotSupported(_):
-                fatalError("Examine which feeds don't support byte ranges, and why.")
-            case .unknown:
-                // For now there's no need to panic. This method is most likely
-                // to be called before the error mode reaches the AVPlayerItem.
-                // We will respond to the error via the KVO response to that.
-                // Furthermore, it is possible that `delegate` is responding to
-                // a delayed error from a request associated with an asset that
-                // is no longer the current asset.
-                break
-            }
-        } else {
-            // For now there's no need to panic. This method is most likely to be
-            // called before the error mode reaches the AVPlayerItem. We will
-            // respond to the error via the KVO response to that.
-            // Furthermore, it is possible that `delegate` is responding to a
-            // delayed error from a request associated with an asset that is no
-            // longer the current asset.
-        }
-    }
-    
-    func resourceLoaderDelegate(_ delegate: ResourceLoaderDelegate, didUpdateLoadedByteRanges ranges: [ByteRange]) {
-        onMainQueue {
-            let info: [String: Any] = [PlaybackControllerNotification.ByteRangesKey: ranges]
-            self.post(.DidUpdateLoadedByteRanges, userInfo: info)
         }
     }
     
@@ -923,4 +860,11 @@ fileprivate func convertFromOptionalAVPlayerWaitingReason(_ input: AVPlayer.Wait
 // Helper function inserted by Swift 4.2 migrator.
 fileprivate func convertFromAVAudioSessionPort(_ input: AVAudioSession.Port) -> String {
 	return input.rawValue
+}
+
+// Internal Logger
+public func DebugLog(_ input: Any = "", file: String = #file, function: String = #function, line: Int = #line) {
+    #if DEBUG
+        print("\n\(NSDate())\n\(file):\n\(function)() Line \(line)\n\(input)\n\n")
+    #endif
 }

@@ -15,7 +15,8 @@ internal extension UInt {
     static func withInterval(_ i: TimeInterval?) -> UInt? {
         if let i = i {
             return UInt(i)
-        } else {
+        }
+        else {
             return nil
         }
     }
@@ -31,20 +32,21 @@ internal extension CMTime {
     var asTimeInterval: TimeInterval? {
         if isNumeric {
             return CMTimeGetSeconds(self)
-        } else {
+        }
+        else {
             return nil
         }
     }
 }
 
 internal extension AVPlayer {
-    
+
     var isPlaying: Bool {
         return error == nil && rate != 0 && currentItem != nil
     }
-    
+
     var isPaused: Bool {
         return error == nil && rate == 0 && currentItem != nil
     }
-    
+
 }

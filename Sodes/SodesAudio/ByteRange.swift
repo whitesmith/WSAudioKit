@@ -24,7 +24,7 @@ extension Int64: Summable {
     }
 }
 
-public typealias ByteRange = Range<Int64>
+typealias ByteRange = Range<Int64>
 
 enum ByteRangeIndexPosition {
     case before

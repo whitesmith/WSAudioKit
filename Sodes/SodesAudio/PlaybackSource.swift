@@ -9,31 +9,29 @@
 import Foundation
 import UIKit
 import MediaPlayer
-import SodesFoundation
 
 public protocol PlaybackSource {
-    var uniqueId: String {get}
-    var artistId: String {get}
-    var remoteUrl: URL {get}
-    var title: String? {get}
-    var albumTitle: String? {get}
-    var artist: String? {get}
-    var artworkUrl: URL? {get}
-    var artworkImage: UIImage? {get}
-    var mediaType: MPMediaType {get}
-    var expectedLengthInBytes: Int64? {get}    
+    var uniqueId: String { get }
+    var artistId: String { get }
+    var remoteUrl: URL { get }
+    var title: String? { get }
+    var albumTitle: String? { get }
+    var artist: String? { get }
+    var artworkUrl: URL? { get }
+    var artworkImage: UIImage? { get }
+    var mediaType: MPMediaType { get }
+    var expectedLengthInBytes: Int64? { get }    
 }
 
 internal extension PlaybackSource {
-    
+
     func nowPlayingInfo(image: UIImage? = nil, duration: TimeInterval? = nil, elapsedPlaybackTime: TimeInterval? = nil, rate: Double? = nil) -> [String: Any] {
-        
         var info: [String: Any] = [:]
-        
+
         if #available(iOS 10.0, *) {
             info[MPMediaItemPropertyMediaType] = MPNowPlayingInfoMediaType.audio.rawValue
         }
-        
+
         if let title = title {
             info[MPMediaItemPropertyTitle] = title
         }
@@ -50,7 +48,8 @@ internal extension PlaybackSource {
                 artwork = MPMediaItemArtwork(boundsSize: image.size) { (inputSize) -> UIImage in
                     return image.draw(at: inputSize)
                 }
-            } else {
+            }
+            else {
                 artwork = MPMediaItemArtwork(image: image)
             }
             info[MPMediaItemPropertyArtwork] = artwork
@@ -64,26 +63,23 @@ internal extension PlaybackSource {
         if let rate = rate {
             info[MPNowPlayingInfoPropertyPlaybackRate] = NSNumber(value: rate)
         }
-        
+
         return info
     }
-    
+
 }
 
 private extension UIImage {
-    
+
     func draw(at targetSize: CGSize) -> UIImage {
-        
         guard !self.size.equalTo(CGSize.zero) else {
-            SodesLog("Invalid image size: (0,0)")
             return self
         }
-        
+
         guard !targetSize.equalTo(CGSize.zero) else {
-            SodesLog("Invalid target size: (0,0)")
             return self
         }
-        
+
         let scaledSize = sizeThatFills(targetSize)
         let x = (targetSize.width - scaledSize.width) / 2.0
         let y = (targetSize.height - scaledSize.height) / 2.0
@@ -93,11 +89,10 @@ private extension UIImage {
         draw(in: drawingRect)
         let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        
+
         return resizedImage!
-        
     }
-    
+
     func sizeThatFills(_ other: CGSize) -> CGSize {
         guard !size.equalTo(CGSize.zero) else {
             return other
@@ -106,9 +101,10 @@ private extension UIImage {
         let widthRatio = other.width / size.width
         if heightRatio > widthRatio {
             return CGSize(width: size.width * heightRatio, height: size.height * heightRatio)
-        } else {
+        }
+        else {
             return CGSize(width: size.width * widthRatio, height: size.height * widthRatio)
         }
     }
-    
+
 }

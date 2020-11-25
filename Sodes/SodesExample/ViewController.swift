@@ -92,7 +92,11 @@ class ViewController: UIViewController {
         
         center.addObserver(forName: PlaybackControllerNotification.DidUpdateElapsedTime.name, object: nil, queue: .main) { (note) in
             let controller = PlaybackController.shared
-            guard let duration = controller.duration else {return}
+            guard
+                let duration = controller.duration
+            else {
+                return
+            }
             let elapsed = floor(controller.elapsedTime)
             self.elapsedTimeLabel.text = EpisodeDurationParsing.string(from: elapsed)
             let remaining = floor(duration - elapsed)
@@ -112,13 +116,6 @@ class ViewController: UIViewController {
                 self.activityIndicator.stopAnimating()
             case .error(_):
                 self.activityIndicator.stopAnimating()
-            }
-        }
-        
-        center.addObserver(forName: PlaybackControllerNotification.DidUpdateLoadedByteRanges.name, object: nil, queue: .main) { (note) in
-            let key = PlaybackControllerNotification.ByteRangesKey
-            if let ranges = note.userInfo?[key] as? [ByteRange] {
-                self.byteRangeTextView.text = "\(ranges)"
             }
         }
 
