@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name = "WSAudioKit"
-  s.version = "1.1.0"
-  s.summary = "Convenient wrapper around AVFoundation & MediaPlayer"
+  s.version = "1.2.0"
+  s.summary = "Convenient wrapper around AVFoundation & MediaPlayer."
   s.homepage = "https://github.com/whitesmith/WSAudioKit"
   s.license = 'MIT'
   s.author = { "Ricardo Pereira" => "ricardopereira@whitesmith.co" }
