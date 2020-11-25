@@ -361,7 +361,7 @@ public class PlaybackController: NSObject {
         player.replaceCurrentItem(with: currentPlayerItem!)
     }
     
-    /// Removes the current source.s
+    /// Removes the current source.
     public func removeCurrentSource() {
         currentSource = nil
         player.pause()
@@ -378,7 +378,7 @@ public class PlaybackController: NSObject {
 
     public func reasonForWaitingToPlay() -> String? {
         if #available(iOS 10.0, *) {
-            return convertFromOptionalAVPlayerWaitingReason(player.reasonForWaitingToPlay)
+            return player.reasonForWaitingToPlay?.rawValue
         }
         else {
             return nil
@@ -642,14 +642,14 @@ fileprivate extension PlaybackController {
         switch reason {
         case .newDeviceAvailable:
             let session = AVAudioSession.sharedInstance()
-            for output in session.currentRoute.outputs where convertFromAVAudioSessionPort(output.portType) == convertFromAVAudioSessionPort(AVAudioSession.Port.headphones) {
+            for output in session.currentRoute.outputs where output.portType == AVAudioSession.Port.headphones {
                 headphonesConnected = true
                 break
             }
         case .oldDeviceUnavailable:
             if let previousRoute =
                 userInfo[AVAudioSessionRouteChangePreviousRouteKey] as? AVAudioSessionRouteDescription {
-                for output in previousRoute.outputs where convertFromAVAudioSessionPort(output.portType) == convertFromAVAudioSessionPort(AVAudioSession.Port.headphones) {
+                for output in previousRoute.outputs where output.portType == AVAudioSession.Port.headphones {
                     headphonesConnected = false
                     break
                 }
@@ -840,28 +840,30 @@ fileprivate extension DispatchTime {
     
 }
 
-// Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertFromAVAudioSessionCategory(_ input: AVAudioSession.Category) -> String {
-	return input.rawValue
+// MARK: FileManager Convenience
+
+extension FileManager {
+
+    func cachesDirectory() -> URL? {
+        let directories = urls(
+            for: .cachesDirectory,
+            in: .userDomainMask
+        )
+        return directories.first
+    }
+
+    func documentsDirectory() -> URL? {
+        let directories = urls(
+            for: .documentDirectory,
+            in: .userDomainMask
+        )
+        return directories.first
+    }
+
 }
 
-// Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertFromAVAudioSessionMode(_ input: AVAudioSession.Mode) -> String {
-	return input.rawValue
-}
+// MARK: Internal Logger
 
-// Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertFromOptionalAVPlayerWaitingReason(_ input: AVPlayer.WaitingReason?) -> String? {
-	guard let input = input else { return nil }
-	return input.rawValue
-}
-
-// Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertFromAVAudioSessionPort(_ input: AVAudioSession.Port) -> String {
-	return input.rawValue
-}
-
-// Internal Logger
 public func DebugLog(_ input: Any = "", file: String = #file, function: String = #function, line: Int = #line) {
     #if DEBUG
         print("\n\(NSDate())\n\(file):\n\(function)() Line \(line)\n\(input)\n\n")

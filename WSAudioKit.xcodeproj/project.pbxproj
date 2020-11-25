@@ -23,7 +23,6 @@
 		47F9534E1D4C2312006A6C0C /* NSObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F953331D4C2305006A6C0C /* NSObject.swift */; };
 		47F9534F1D4C2312006A6C0C /* PlaybackController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F953341D4C2305006A6C0C /* PlaybackController.swift */; };
 		47F953511D4C2312006A6C0C /* PlaybackSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F953361D4C2305006A6C0C /* PlaybackSource.swift */; };
-		D7BF486C256E9A570047DD17 /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BF486B256E9A570047DD17 /* FileManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,7 +76,6 @@
 		47F953331D4C2305006A6C0C /* NSObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NSObject.swift; path = Source/NSObject.swift; sourceTree = SOURCE_ROOT; };
 		47F953341D4C2305006A6C0C /* PlaybackController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlaybackController.swift; path = Source/PlaybackController.swift; sourceTree = SOURCE_ROOT; };
 		47F953361D4C2305006A6C0C /* PlaybackSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlaybackSource.swift; path = Source/PlaybackSource.swift; sourceTree = SOURCE_ROOT; };
-		D7BF486B256E9A570047DD17 /* FileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,7 +120,6 @@
 				47F953341D4C2305006A6C0C /* PlaybackController.swift */,
 				47F953361D4C2305006A6C0C /* PlaybackSource.swift */,
 				47F953301D4C2305006A6C0C /* ByteRange.swift */,
-				D7BF486B256E9A570047DD17 /* FileManager.swift */,
 				47F953321D4C2305006A6C0C /* MiscExtensions.swift */,
 				47F953331D4C2305006A6C0C /* NSObject.swift */,
 				479A77121D673D00000C9C75 /* URLRequest.swift */,
@@ -324,7 +321,6 @@
 				47F9534F1D4C2312006A6C0C /* PlaybackController.swift in Sources */,
 				47F9534C1D4C2312006A6C0C /* ByteRange.swift in Sources */,
 				47F9534E1D4C2312006A6C0C /* NSObject.swift in Sources */,
-				D7BF486C256E9A570047DD17 /* FileManager.swift in Sources */,
 				479A77131D673D00000C9C75 /* URLRequest.swift in Sources */,
 				47F9534D1D4C2312006A6C0C /* MiscExtensions.swift in Sources */,
 				47F953511D4C2312006A6C0C /* PlaybackSource.swift in Sources */,
