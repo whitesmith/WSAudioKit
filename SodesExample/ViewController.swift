@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import SodesAudio
+import WSAudioKit
 import MediaPlayer
 import AVKit
 

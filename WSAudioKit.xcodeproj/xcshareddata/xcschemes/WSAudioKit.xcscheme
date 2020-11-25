@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "473AB2041D3275B4000B15FF"
-               BuildableName = "SodesAudio.framework"
-               BlueprintName = "SodesAudio"
-               ReferencedContainer = "container:Sodes.xcodeproj">
+               BuildableName = "WSAudioKit.framework"
+               BlueprintName = "WSAudioKit"
+               ReferencedContainer = "container:WSAudioKit.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -29,9 +29,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4731BAF11D5534ED00FCF41B"
-               BuildableName = "SodesAudioTests.xctest"
-               BlueprintName = "SodesAudioTests"
-               ReferencedContainer = "container:Sodes.xcodeproj">
+               BuildableName = "WSAudioKitTests.xctest"
+               BlueprintName = "WSAudioKitTests"
+               ReferencedContainer = "container:WSAudioKit.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -45,9 +45,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "473AB2041D3275B4000B15FF"
-            BuildableName = "SodesAudio.framework"
-            BlueprintName = "SodesAudio"
-            ReferencedContainer = "container:Sodes.xcodeproj">
+            BuildableName = "WSAudioKit.framework"
+            BlueprintName = "WSAudioKit"
+            ReferencedContainer = "container:WSAudioKit.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <Testables>
@@ -56,9 +56,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4731BAF11D5534ED00FCF41B"
-               BuildableName = "SodesAudioTests.xctest"
-               BlueprintName = "SodesAudioTests"
-               ReferencedContainer = "container:Sodes.xcodeproj">
+               BuildableName = "WSAudioKitTests.xctest"
+               BlueprintName = "WSAudioKitTests"
+               ReferencedContainer = "container:WSAudioKit.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -77,9 +77,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "473AB2041D3275B4000B15FF"
-            BuildableName = "SodesAudio.framework"
-            BlueprintName = "SodesAudio"
-            ReferencedContainer = "container:Sodes.xcodeproj">
+            BuildableName = "WSAudioKit.framework"
+            BlueprintName = "WSAudioKit"
+            ReferencedContainer = "container:WSAudioKit.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </LaunchAction>
@@ -93,9 +93,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "473AB2041D3275B4000B15FF"
-            BuildableName = "SodesAudio.framework"
-            BlueprintName = "SodesAudio"
-            ReferencedContainer = "container:Sodes.xcodeproj">
+            BuildableName = "WSAudioKit.framework"
+            BlueprintName = "WSAudioKit"
+            ReferencedContainer = "container:WSAudioKit.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>

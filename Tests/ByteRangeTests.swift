@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import SodesAudio
+@testable import WSAudioKit
 
 class ByteRangeTests: XCTestCase {
     
