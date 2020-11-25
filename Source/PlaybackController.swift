@@ -53,12 +53,11 @@ public enum PlaybackControllerNotification: String {
 }
 
 fileprivate enum PlaybackMode: String {
-    case fromResourceLoader
     case fromRemoteUrl
     case fromFileUrl
 }
 
-public enum ResourceLoaderMode: String {
+public enum ResourceLoader: String {
     case system
 }
 
@@ -233,12 +232,12 @@ public class PlaybackController: NSObject {
     fileprivate var playbackMode: PlaybackMode = .fromRemoteUrl
 
     /// The current resource loader mode.
-    public fileprivate(set) var resourceLoaderMode: ResourceLoaderMode = .system
+    public fileprivate(set) var resourceLoaderMode: ResourceLoader = .system
     
     // MARK: Init/Deinit
     
     /// Designated initializer.
-    public init(resourcesDirectory: URL, defaults: UserDefaults, customLoadingScheme: String = "playbackcontroller", resourceLoaderMode: ResourceLoaderMode = .system) {
+    public init(resourcesDirectory: URL, defaults: UserDefaults, customLoadingScheme: String = "playbackcontroller", resourceLoaderMode: ResourceLoader = .system) {
         player = AVPlayer()
 
         // Discussion (DTS 696294259, rdar://42881405)
