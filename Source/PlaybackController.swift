@@ -235,6 +235,10 @@ public class PlaybackController: NSObject {
     public fileprivate(set) var resourceLoaderMode: ResourceLoader = .system
     
     // MARK: Init/Deinit
+
+    convenience override init() {
+        self.init(resourcesDirectory: PlaybackController.defaultDirectory, defaults: UserDefaults.standard)
+    }
     
     /// Designated initializer.
     public init(resourcesDirectory: URL, defaults: UserDefaults, customLoadingScheme: String = "playbackcontroller", resourceLoaderMode: ResourceLoader = .system) {
