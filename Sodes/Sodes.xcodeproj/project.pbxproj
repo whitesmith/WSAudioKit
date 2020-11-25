@@ -63,7 +63,6 @@
 		47FBF67A1D56626900AB241C /* SODSwiftableFileHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = 47FBF6781D56626900AB241C /* SODSwiftableFileHandle.m */; };
 		47FBF67B1D5666F900AB241C /* SwiftableFileHandle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47FBF6631D56622F00AB241C /* SwiftableFileHandle.framework */; };
 		47FBF67D1D56671400AB241C /* SODSwiftableFileHandle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47FBF67C1D56671400AB241C /* SODSwiftableFileHandle.swift */; };
-		D7AA3F4E207CEC8E0081C52A /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7AA3F46207CBDD60081C52A /* CryptoSwift.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -198,7 +197,6 @@
 			files = (
 				47FBF67B1D5666F900AB241C /* SwiftableFileHandle.framework in Frameworks */,
 				47AAD5BE1D5588210025A72C /* SodesFoundation.framework in Frameworks */,
-				D7AA3F4E207CEC8E0081C52A /* CryptoSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -440,7 +438,6 @@
 				474939DD1D7A8498009C5F0E /* Frameworks */,
 				474939DE1D7A8498009C5F0E /* Resources */,
 				47493A021D7A84AF009C5F0E /* Embed Frameworks */,
-				D7A5DC9F208FADBB009EB10A /* Carthage */,
 			);
 			buildRules = (
 			);
@@ -515,7 +512,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0800;
-				LastUpgradeCheck = 1200;
+				LastUpgradeCheck = 1220;
 				TargetAttributes = {
 					4731BAF11D5534ED00FCF41B = {
 						CreatedOnToolsVersion = 8.0;
@@ -624,25 +621,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		D7A5DC9F208FADBB009EB10A /* Carthage */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/../Carthage/Build/iOS/CryptoSwift.framework",
-			);
-			name = Carthage;
-			outputPaths = (
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/CryptoSwift.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		4731BAEE1D5534ED00FCF41B /* Sources */ = {
@@ -875,10 +853,6 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/../Carthage/Build/iOS",
-				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -941,10 +915,6 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/../Carthage/Build/iOS",
-				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
