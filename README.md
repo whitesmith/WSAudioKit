@@ -3,7 +3,7 @@
 [![CocoaPods Compatible](https://img.shields.io/cocoapods/v/WSAudioKit.svg?style=flat)](https://cocoapods.org/pods/WSAudioKit)
 [![Swift 5.3](https://img.shields.io/badge/Swift-5.3-orange.svg?style=flat)](https://developer.apple.com/swift/)
 [![Platforms iOS](https://img.shields.io/badge/Platforms-iOS-lightgray.svg?style=flat)](https://developer.apple.com/swift/)
-[![License MIT](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/ricardopereira/PremierKit/blob/master/LICENSE)
+[![License MIT](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/whitesmith/WSAudioKit/blob/master/LICENSE)
 
 # WSAudioKit
 
@@ -13,13 +13,13 @@ Convenient wrapper around AVFoundation & MediaPlayer.
 
 #### CocoaPod:
 
-```
+```ruby
 pod 'WSAudioKit'
 ```
 
 #### Carthage:
 
-```
+```ruby
 github "whitesmith/WSAudioKit"
 ```
 
@@ -54,7 +54,7 @@ playbackControllerNotificationDidPlayToEndToken = center.addObserver(forName: Pl
 
 ## Acknowledgements
 
-This is a modified copy of [sodes-audio](https://github.com/jaredsinclair/sodes-audio-example), a convenient wrapper around CommonCrypto that can be used in a Swift framework.
+This is a modified copy of [sodes-audio](https://github.com/jaredsinclair/sodes-audio-example).
 
 ### Sodes-audio-example
 
