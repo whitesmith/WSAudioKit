@@ -236,7 +236,7 @@ public class PlaybackController: NSObject {
     
     // MARK: Init/Deinit
 
-    convenience override init() {
+    public convenience override init() {
         self.init(resourcesDirectory: PlaybackController.defaultDirectory, defaults: UserDefaults.standard)
     }
     
