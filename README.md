@@ -1,6 +1,13 @@
+[![Carthage Compatible](https://img.shields.io/badge/Carthage-Compatible-brightgreen.svg)](https://github.com/Carthage/Carthage)
+[![SwiftPM Compatible](https://img.shields.io/badge/SwiftPM-Compatible-brightgreen.svg)](https://swift.org/package-manager)
+[![CocoaPods Compatible](https://img.shields.io/cocoapods/v/WSAudioKit.svg?style=flat)](https://cocoapods.org/pods/WSAudioKit)
+[![Swift 5.3](https://img.shields.io/badge/Swift-5.3-orange.svg?style=flat)](https://developer.apple.com/swift/)
+[![Platforms iOS](https://img.shields.io/badge/Platforms-iOS-lightgray.svg?style=flat)](https://developer.apple.com/swift/)
+[![License MIT](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/ricardopereira/PremierKit/blob/master/LICENSE)
+
 # WSAudioKit
 
-### Convenient wrapper around AVFoundation & MediaPlayer.
+Convenient wrapper around AVFoundation & MediaPlayer.
 
 ## Installation
 
